@@ -55,19 +55,37 @@ public class JerseyExemploController {
     }
 
     @GET
-    @Path("consultar")
+    @Path("consultarTodos")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response consultar() {
+    public Response consultarTodos() {
         Gson gson = new Gson();
-        return Response.status(Status.OK).entity(gson.toJson(pessoaDAO.recuperar())).build();
+        return Response.status(Status.OK).entity(gson.toJson(pessoaDAO.consultarTodos())).build();
+    }
+    
+    @POST
+    @Path("alterar")
+    public Response alterar(@QueryParam("nome") String nome,
+                            @QueryParam("idade") int idade) {
+        Pessoa pessoa = new Pessoa(nome, idade);
+        this.pessoaDAO.alterar(pessoa);
+        return Response.status(Status.OK).build();
     }
 
     @DELETE
     @Path("remover")
-    public Response remover(@QueryParam("pessoa") String nome, int idade) {
+    public Response remover(@QueryParam("nome") String nome,
+                            @QueryParam("idade") int idade) {
         Pessoa pessoa = new Pessoa(nome, idade);
         this.pessoaDAO.remover(pessoa);
         return Response.status(Status.OK).build();
+    }
+    
+    @GET
+    @Path("consultarPessoa")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response consultar(@QueryParam("nome") String nome){
+        Gson gson = new Gson();
+        return Response.status(Status.OK).entity(gson.toJson(pessoaDAO.consultar(nome))).build();
     }
 
     /*@GET

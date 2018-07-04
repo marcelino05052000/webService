@@ -33,20 +33,36 @@ public class PessoaDAO {
         return this.pessoas.add(pessoa);
     }
 
-    public boolean remover(Pessoa pessoa) {
-        return this.pessoas.remove(pessoa);
+    public boolean remover(Pessoa p) {
+        for (Pessoa pessoa : this.pessoas) {
+            if (pessoa.getNome().equals(p.getNome())) {
+                this.pessoas.remove(pessoa);
+            }
+        }
+        /*return this.pessoas.remove(pessoa);*/
+        return false;
     }
 
-    public Pessoa consultar(String codigo) {
+    public Pessoa consultar(String nome) {
         for (Pessoa pessoa : this.pessoas) {
-            if (pessoa.getNome() == (codigo)) {
+            if (pessoa.getNome().equals(nome)){
                 return pessoa;
             }
         }
         return null;
     }
+    
+    public void alterar(Pessoa p) {
+        for (Pessoa pessoa : this.pessoas) {
+            if (pessoa.getNome().equals(p.getNome())) {
+                this.pessoas.remove(pessoa);
+                this.pessoas.add(p);
+            }
+        }
+    }
 
-    public List<Pessoa> recuperar() {
+    public List<Pessoa> consultarTodos() {
         return this.pessoas;
     }
+    
 }

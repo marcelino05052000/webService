@@ -6,12 +6,14 @@
 package com.mycompany.projeto;
 
 import java.util.Objects;
+import javax.persistence.Id;
 
 /**
  *
  * @author pronatec
  */
 public class Pessoa {
+    @Id
     String nome;
     int idade;
 
