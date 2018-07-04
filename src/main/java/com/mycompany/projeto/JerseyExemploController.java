@@ -7,7 +7,7 @@ package com.mycompany.projeto;
 
 /**
  *
- * @author pronatec
+ * @author Marcelino
  */
 import com.google.gson.Gson;
 import javax.ws.rs.GET;
@@ -44,7 +44,7 @@ public class JerseyExemploController {
         return "Olá mundo!";
     }
 
-    // http://localhost:8084/ExemploCrudREST/meuwebservice/adicionar?nome=Leonardo&idade=31
+    // http://localhost:8080/projeto/meuwebservice/adicionar?nome=Marcelino&idade=18
     @POST
     @Path("adicionar")
     public Response adicionar(@QueryParam("nome") String nome,
@@ -54,6 +54,7 @@ public class JerseyExemploController {
         return Response.status(Status.OK).build();
     }
 
+    // http://localhost:8080/projeto/meuwebservice/consultarTodos
     @GET
     @Path("consultarTodos")
     @Produces(MediaType.TEXT_PLAIN)
@@ -62,6 +63,8 @@ public class JerseyExemploController {
         return Response.status(Status.OK).entity(gson.toJson(pessoaDAO.consultarTodos())).build();
     }
     
+    // http://localhost:8080/projeto/meuwebservice/alterar?nome=Marcelino&idade=17
+    // Altera a idade por nome
     @POST
     @Path("alterar")
     public Response alterar(@QueryParam("nome") String nome,
@@ -71,6 +74,8 @@ public class JerseyExemploController {
         return Response.status(Status.OK).build();
     }
 
+    // http://localhost:8080/projeto/meuwebservice/remover?nome=Marcelino&idade=18
+    // Deleta por nome ou por nome + idade
     @DELETE
     @Path("remover")
     public Response remover(@QueryParam("nome") String nome,
@@ -80,6 +85,8 @@ public class JerseyExemploController {
         return Response.status(Status.OK).build();
     }
     
+    // http://localhost:8080/projeto/meuwebservice/consultarPessoa?nome=Marcelino
+    // Consulta apenas colocando nome
     @GET
     @Path("consultarPessoa")
     @Produces(MediaType.APPLICATION_JSON)
@@ -87,14 +94,5 @@ public class JerseyExemploController {
         Gson gson = new Gson();
         return Response.status(Status.OK).entity(gson.toJson(pessoaDAO.consultar(nome))).build();
     }
-
-    /*@GET
-    @Path("adicionar")
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response adicionar(@QueryParam("nome") String nome) {
-        Pessoa pessoa = new Pessoa(nome);
-        Gson gson = new Gson();
-        Boolean resultado = new Boolean(this.pessoaDAO.adicionar(pessoa));
-        return Response.status(Status.OK).entity(gson.toJson(resultado)).build();
-    }*/
+    
 }

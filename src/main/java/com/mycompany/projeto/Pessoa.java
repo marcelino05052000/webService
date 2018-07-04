@@ -10,7 +10,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author pronatec
+ * @author Marcelino
  */
 public class Pessoa {
     @Id
